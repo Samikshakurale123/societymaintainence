@@ -1,0 +1,1 @@
+export const onlyNumbers = (value) => /^[0-9]*$/.test(value);
