@@ -14,7 +14,7 @@ function Complaints() {
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
-    if (name === "image") {
+    if (name === "image" && files[0]) {
       const reader = new FileReader();
       reader.onload = () => {
         setComplaint({ ...complaint, image: reader.result });
@@ -26,8 +26,8 @@ function Complaints() {
   };
 
   const handleSubmit = () => {
-    if (!complaint.subject || !complaint.body) {
-      alert("Subject and Description required");
+    if (!complaint.subject || !complaint.body || !complaint.date) {
+      alert("Please fill all required fields");
       return;
     }
 
@@ -40,55 +40,77 @@ function Complaints() {
 
   return (
     <div className="container">
-      <h2>Raise a Complaint</h2>
+      <h2 className="page-title">Raise a Complaint</h2>
 
-      <input
-        name="subject"
-        placeholder="Subject"
-        onChange={handleChange}
-      />
+      {/* Complaint Form */}
+      <div className="card">
+        <label>Subject</label>
+        <input
+          name="subject"
+          placeholder="Enter complaint subject"
+          onChange={handleChange}
+        />
 
-      <textarea
-        name="body"
-        placeholder="Complaint Description"
-        onChange={handleChange}
-      ></textarea>
+        <label>Description</label>
+        <textarea
+          name="body"
+          placeholder="Describe your issue"
+          rows="4"
+          onChange={handleChange}
+        ></textarea>
 
-      <input
-        type="date"
-        name="date"
-        onChange={handleChange}
-      />
+        <label>Date of Issue</label>
+        <input
+          type="date"
+          name="date"
+          onChange={handleChange}
+        />
 
-      <select name="priority" onChange={handleChange}>
-        <option value="">Select Priority</option>
-        <option>High</option>
-        <option>Medium</option>
-        <option>Low</option>
-      </select>
+        <label>Priority</label>
+        <select name="priority" onChange={handleChange}>
+          <option value="">Select Priority</option>
+          <option>High</option>
+          <option>Medium</option>
+          <option>Low</option>
+        </select>
 
-      <input type="file" name="image" onChange={handleChange} />
+        <label>Upload Photo (optional)</label>
+        <input type="file" name="image" onChange={handleChange} />
 
-      <button onClick={handleSubmit}>Submit Complaint</button>
+        <button className="primary-btn" onClick={handleSubmit}>
+          Submit Complaint
+        </button>
+      </div>
 
-      <h3>My Complaints</h3>
+      {/* Complaints Table */}
+      <h3 className="section-title">My Complaints</h3>
 
-      <table border="1" width="100%">
-        <thead>
-          <tr>
-            <th>Subject</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {complaints.map((c, index) => (
-            <tr key={index} onClick={() => setSelected(c)}>
-              <td>{c.subject}</td>
-              <td>{c.date}</td>
+      <div className="table-wrapper">
+        <table className="styled-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Date</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {complaints.length === 0 ? (
+              <tr>
+                <td colSpan="2" style={{ textAlign: "center" }}>
+                  No complaints raised yet
+                </td>
+              </tr>
+            ) : (
+              complaints.map((c, index) => (
+                <tr key={index} onClick={() => setSelected(c)}>
+                  <td>{c.subject}</td>
+                  <td>{c.date}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
 
       <Modal complaint={selected} onClose={() => setSelected(null)} />
     </div>

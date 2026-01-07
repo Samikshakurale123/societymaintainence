@@ -61,3 +61,63 @@ button:hover {
   width: 100%;
   margin-top: 10px;
 }
+.page-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  font-weight: 600;
+  margin-top: 10px;
+  display: block;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: white;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background: #1e40af;
+}
+
+.section-title {
+  margin: 30px 0 10px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.styled-table th {
+  background: #1e3a8a;
+  color: white;
+  padding: 10px;
+}
+
+.styled-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.styled-table tr:hover {
+  background: #f1f5f9;
+  cursor: pointer;
+}
